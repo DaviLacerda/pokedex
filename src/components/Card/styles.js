@@ -50,4 +50,10 @@ export const PokemonContainer = styled.div`
             cursor: pointer;
         }
     }
+
+    .types{
+        display:flex;
+        flex-direction:row;
+        gap:4px;
+    }
 `;

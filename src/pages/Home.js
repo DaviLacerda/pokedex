@@ -40,11 +40,11 @@ function Home() {
         <>
             <Header>Pokedéx</Header>
             <Container>
-                {pokemonShow.map( (pokemon, index) =>                     
+                {pokemonShow.map( (pokemon) =>                     
                     <Card key={pokemon.id} id={pokemon.id}
                     src={pokemon.sprites}
                     name={pokemon.name}
-                    type={pokemon.types[0].type.name}
+                    type={pokemon.types}
                     ></Card>
                 )}
                 <ButtonStyled onClick={() => getPokemons()} id='loadBtn'>Load More</ButtonStyled>

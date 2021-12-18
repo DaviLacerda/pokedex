@@ -59,21 +59,26 @@ function Card(props) {
         }
     }
 
-    let bg = addColorType(props.type);
     let img;
-    if(props.src.other.dream_world.front_default){
-        img = props.src.other.dream_world.front_default;
-    }
-    else{
-        img = props.src.front_default;
-    }
+    props.src.other.dream_world.front_default ? img = props.src.other.dream_world.front_default :  img = props.src.front_default;
+
+    var bg;
 
     return (
         <PokemonContainer id={props.id} className='pokemon-container' key={props.id}>
             <span>#{props.id}</span>
             <img src={img} alt={props.name}/>
             <h2>{props.name}</h2>
-            <button style={{background: bg}}>{props.type}</button>
+            <div className='types'>
+                {props.type.map((array) => 
+                    {   bg = addColorType(array.type.name)
+                        {return (
+                            <button style={{background: bg}} key={`${props.id}-${bg}`}>{array.type.name}</button>
+                        )
+                        }
+                    }     
+                )}
+            </div>
         </PokemonContainer>
     )
 }
