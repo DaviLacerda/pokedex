@@ -23,10 +23,10 @@ export const Container = styled.div`
     flex-wrap: wrap;
     align-items:center;
     justify-content:center;
-    gap:8px;
+    gap:20px;
 
     width:75%;
-    max-width:1300px;
+    max-width:100vw;
 
     min-height:100vh;
     height: auto;
@@ -34,4 +34,8 @@ export const Container = styled.div`
     margin:32px;
     padding:32px;
     background-color: transparent;
+
+    @media(max-width:900px){
+        flex-direction:column;
+    }
 `;

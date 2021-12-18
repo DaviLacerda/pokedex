@@ -11,6 +11,8 @@ export const ButtonStyled = styled.button`
 
     background-color:#fff;
 
+    margin-bottom:32px;
+
     border:1px solid #000;
     border-radius:20px;
     transition:.3s;

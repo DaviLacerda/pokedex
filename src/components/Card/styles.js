@@ -6,7 +6,7 @@ export const PokemonContainer = styled.div`
     width: 100%;
     max-width: 300px;
 
-    height: 300px;
+    height: 200px;
 
     position: relative;
     font-family:'Poppins',sans-serif;
@@ -15,12 +15,14 @@ export const PokemonContainer = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    gap: 4px;
+    
 
     border: 1px solid #a52424;
     border-radius: 20px;
     background-color: #a52424;
     padding: 16px;
+
+    transition: transform .5s;
 
     h2{
         text-align:center;
@@ -43,17 +45,17 @@ export const PokemonContainer = styled.div`
         color: #fff;
         border: none;
         text-transform: uppercase;
-        transition: filter .5s;
-
-        &:hover{
-            filter: opacity(0.8);
-            cursor: pointer;
-        }
+        pointer-events:none;
     }
 
     .types{
         display:flex;
         flex-direction:row;
         gap:4px;
+    }
+
+    &:hover{
+        cursor:pointer;
+        transform:translateY(-10px);
     }
 `;
