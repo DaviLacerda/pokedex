@@ -22,8 +22,6 @@ export const PokemonContainer = styled.div`
     background-color: #a52424;
     padding: 16px;
 
-    transition: transform .5s;
-
     h2{
         text-align:center;
         text-transform:uppercase;
@@ -54,8 +52,12 @@ export const PokemonContainer = styled.div`
         gap:4px;
     }
 
-    &:hover{
+    @media(min-width:1200px){
+        transition: transform .5s;
+
+        &:hover{
         cursor:pointer;
         transform:translateY(-10px);
+    }
     }
 `;
