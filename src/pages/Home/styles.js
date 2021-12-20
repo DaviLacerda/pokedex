@@ -15,6 +15,15 @@ export const Header = styled.header`
     color:#fff;
     background-color:#a52424;
     border-radius:0 0 20px 20px;
+
+    a{
+        text-decoration:none;
+        color:inherit;
+
+        &:visited{
+            color:inherit;
+        }
+    }
 `;
 
 export const Container = styled.div`

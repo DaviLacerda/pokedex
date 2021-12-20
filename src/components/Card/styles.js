@@ -52,6 +52,20 @@ export const PokemonContainer = styled.div`
         gap:4px;
     }
 
+    a{
+        position:absolute;
+
+        width:100%;
+        height:100%;
+
+        text-decoration:none;
+        color:inherit;
+
+        &:visited{
+            color:inherit;
+        }
+    }
+
     @media(min-width:1200px){
         transition: transform .5s;
 

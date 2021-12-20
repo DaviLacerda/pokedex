@@ -1,10 +1,16 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
-import { Header, Container } from "../styles/Home"
-import { ButtonStyled } from '../components/Button/styles';
-import Card from '../components/Card/Card';
+
+import { Header, Container } from "./styles"
+import { ButtonStyled } from '../../components/Button/styles';
+import Card from '../../components/Card/Card';
 
 function Home() {
+    //i use this function always before a .map, to reorganize the array to display pokemons in id order, like a pokedex
+    function order(){
+        pokemonShow.sort((a,b) => a.id - b.id) 
+    }
+
     const [pokemonShow, setPokemonShow] = useState([]);
 
     const [loadPokemon, setLoadPokemon] = useState(`https://pokeapi.co/api/v2/pokemon?limit=20`)
@@ -35,22 +41,20 @@ function Home() {
         getPokemons()
     }, [])
 
-    //i use this function always before a .map, to reorganize the array to display pokemons in id order, like a pokedex
-    function order(){
-        pokemonShow.sort((a,b) => a.id - b.id) 
-    }
+    order();
 
     return (
         <>
-            <Header>Pokedéx</Header>
+            <Header><a href="/">Pokedéx</a></Header>
             <Container>
-            {order()}
-            {pokemonShow.map( (pokemon) =>                     
-                <Card key={pokemon.id} id={pokemon.id}
-                src={pokemon.sprites}
-                name={pokemon.name}
-                type={pokemon.types}
-                ></Card>
+            {pokemonShow.map( (pokemon) =>
+                <>
+                    <Card key={pokemon.id} id={pokemon.id}
+                        src={pokemon.sprites}
+                        name={pokemon.name}
+                        type={pokemon.types}
+                    ></Card>   
+                </>
             )}
             </Container>
             <ButtonStyled onClick={() => getPokemons()} id='loadBtn'>Load More</ButtonStyled>
