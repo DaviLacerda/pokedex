@@ -81,7 +81,7 @@ export const PokemonContainer = styled.div`
         flex-direction:column;
     }
 
-    a{
+    a.header{
         position:absolute;
         top:-30px;
         transition:.5s;
@@ -209,6 +209,7 @@ export const PokemonContainer = styled.div`
             flex-direction:column;
             justify-content:center;
             align-items:center;
+            gap:10px;
 
             @media(min-width:900px){
                 flex-direction:row;
@@ -221,6 +222,15 @@ export const PokemonContainer = styled.div`
 
                 width:100%;
                 max-width:100px;
+
+                a{
+                    width:fit-content;
+                    height:100px;
+                }
+
+                p{
+                    text-align:center;
+                }
             }
         }
     }

@@ -17,7 +17,7 @@ function Pokemon() {
     const [height, setHeight] = useState(null);
     const [weight, setWeight] = useState(null)
     const [evolutions, setEvolutions] = useState([])
-    const [firstEvolutionId, setFirstEvolutionId] = useState(null)
+    const [evolutionsImg, setEvolutionsImg] = useState([])
 
     async function getPokemonId() {
         let result = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`);
@@ -53,15 +53,22 @@ function Pokemon() {
     async function getEvolutions(url){
         const evolutions_result = await axios.get(url);
         let data = evolutions_result.data.chain;
+
+        async function axiosRequest(param){
+            let result = await axios.get(`https://pokeapi.co/api/v2/pokemon/${param}`) 
+            let resultId = result.data.id;
+            setEvolutionsImg(currentList => [...currentList, resultId])
+        }
         
         if(data.species.name){
             setEvolutions(currentList => [...currentList, data.species.name])
-            let id = await axios.get(`https://pokeapi.co/api/v2/pokemon/${data.species.name}`)
-            setFirstEvolutionId(id.data.id)
+            axiosRequest(data.species.name)
             if(data.evolves_to.length !== 0){
                 setEvolutions(currentList => [...currentList, data.evolves_to[0].species.name])
+                axiosRequest(data.evolves_to[0].species.name)
                 if(data.evolves_to[0].evolves_to.length !== 0){
                     setEvolutions(currentList => [...currentList, data.evolves_to[0].evolves_to[0].species.name])
+                    axiosRequest(data.evolves_to[0].evolves_to[0].species.name)
                 }
             }
         }
@@ -69,10 +76,6 @@ function Pokemon() {
 
     function firstLetterUpper(param){
         return param.charAt(0).toUpperCase() + param.slice(1);
-    }
-
-    function plus(a,b){
-        return Number(a) + Number(b);
     }
     
     let colorsKey = Object.keys(colors);
@@ -100,7 +103,7 @@ function Pokemon() {
             <Header><a href="/">Pokedéx</a></Header>
             <Container>
                 <PokemonContainer>
-                    <a href="/">
+                    <a href="/" className="header">
                         <span>Back</span>
                     </a>
                     <div className='left'>
@@ -137,11 +140,13 @@ function Pokemon() {
                             <h2>Evolutions:</h2>
                             <div className="right__infos__evolutions__container">
                                 {
-                                    evolutions.length && evolutions.map((evolve, index) => {
+                                    evolutionsImg.length && evolutions.map((evolve, index) => {
                                         return (
                                             <div className="evolution">
                                                 <p>{firstLetterUpper(evolve)}</p>
-                                                <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${plus(firstEvolutionId,index)}.png`} alt={evolve} width='100%' height='100%'></img>
+                                                <a href={`${evolutionsImg[index]}`}>
+                                                    <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${evolutionsImg[index]}.png`} alt={evolve} width='100%' height='100%' ></img>
+                                                </a>
                                             </div>   
                                         )
                                     })
