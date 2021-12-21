@@ -40,7 +40,6 @@ export const Container = styled.div`
     min-height:100vh;
     height: auto;
 
-    margin:32px;
     padding:32px;
     background-color: transparent;
 

@@ -37,7 +37,6 @@ export const Container = styled.div`
     min-width:100%;
     width:100%;
 
-    min-height:100vh;
     height:100%;
 
     padding:8px;
@@ -51,6 +50,10 @@ export const Container = styled.div`
     align-items:center;
     justify-content:center;
     flex-direction:column;
+
+    @media(min-width:900px){
+        min-height:100vh;
+    }
 `;
 
 export const PokemonContainer = styled.div`
@@ -93,8 +96,10 @@ export const PokemonContainer = styled.div`
             }
         }
 
-        &:hover{
-            transform:translateY(-12px)
+        @media(min-width:1200px){
+            &:hover{
+                transform:translateY(-12px)
+            }
         }
     }
 
@@ -184,6 +189,8 @@ export const PokemonContainer = styled.div`
             flex-direction:column;
             justify-content:center;
 
+            width:100%;
+
             .right__infos__content{
                 display:flex;
                 flex-direction:row;
@@ -196,6 +203,26 @@ export const PokemonContainer = styled.div`
                 p{
                     width:50%;
                 }
+            }
+        }
+
+        .right__infos__evolutions__container{
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:center;
+
+            @media(min-width:900px){
+                flex-direction:row;
+            }
+
+            .evolution{
+                display:flex;
+                flex-direction:column;
+                justify-content:center;
+
+                width:100%;
+                max-width:100px;
             }
         }
     }

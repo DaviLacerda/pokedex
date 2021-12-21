@@ -16,13 +16,15 @@ function Pokemon() {
     const [generation, setGeneration] = useState(null)
     const [height, setHeight] = useState(null);
     const [weight, setWeight] = useState(null)
+    const [evolutions, setEvolutions] = useState([])
+    const [firstEvolutionId, setFirstEvolutionId] = useState(null)
 
     async function getPokemonId() {
         let result = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`);
 
         setPokemon(result.data)
 
-        console.log(result.data.height);
+        //get pokemon height and weight
         setHeight(result.data.height);
         setWeight(result.data.weight);
 
@@ -35,8 +37,42 @@ function Pokemon() {
 
     async function getInformations() {
         const info = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${pokemonId}`)
-        setText(info.data.flavor_text_entries[0].flavor_text);
+        for(let i = 0; i < info.data.flavor_text_entries.length; i++){
+            if(info.data.flavor_text_entries[i].language.name === 'en'){
+                setText(info.data.flavor_text_entries[i].flavor_text);
+                break;
+            }
+        }
+        
         setGeneration(info.data.generation.name)
+
+        let evolutionURL = info.data.evolution_chain.url;
+        getEvolutions(evolutionURL);
+    }
+
+    async function getEvolutions(url){
+        const evolutions_result = await axios.get(url);
+        let data = evolutions_result.data.chain;
+        
+        if(data.species.name){
+            setEvolutions(currentList => [...currentList, data.species.name])
+            let id = await axios.get(`https://pokeapi.co/api/v2/pokemon/${data.species.name}`)
+            setFirstEvolutionId(id.data.id)
+            if(data.evolves_to.length !== 0){
+                setEvolutions(currentList => [...currentList, data.evolves_to[0].species.name])
+                if(data.evolves_to[0].evolves_to.length !== 0){
+                    setEvolutions(currentList => [...currentList, data.evolves_to[0].evolves_to[0].species.name])
+                }
+            }
+        }
+    }
+
+    function firstLetterUpper(param){
+        return param.charAt(0).toUpperCase() + param.slice(1);
+    }
+
+    function plus(a,b){
+        return Number(a) + Number(b);
     }
     
     let colorsKey = Object.keys(colors);
@@ -96,6 +132,21 @@ function Pokemon() {
                             <div className="right__infos__content">
                                 <h3>Weight:</h3>
                                 <p>{`${weight/10}Kg`}</p>
+                            </div>
+                            <div className="right__infos__evolutions">
+                            <h2>Evolutions:</h2>
+                            <div className="right__infos__evolutions__container">
+                                {
+                                    evolutions.length && evolutions.map((evolve, index) => {
+                                        return (
+                                            <div className="evolution">
+                                                <p>{firstLetterUpper(evolve)}</p>
+                                                <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${plus(firstEvolutionId,index)}.png`}></img>
+                                            </div>   
+                                        )
+                                    })
+                                }
+                            </div>
                             </div>
                         </div>
                     </div>
