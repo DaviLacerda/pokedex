@@ -108,7 +108,7 @@ function Pokemon() {
                         <h2 id="pokemonId">{`#${pokemon.id}`}</h2>
                         <div className="left__bgPokemon">
                             <span style={{background: bg}} className="circle">
-                                <img src={image} alt={pokemon.name}></img>
+                                <img src={image} alt={pokemon.name} height='100%' width='100%'></img>
                             </span>
                             <div className="left__types">
                                 {
@@ -141,7 +141,7 @@ function Pokemon() {
                                         return (
                                             <div className="evolution">
                                                 <p>{firstLetterUpper(evolve)}</p>
-                                                <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${plus(firstEvolutionId,index)}.png`}></img>
+                                                <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${plus(firstEvolutionId,index)}.png`} alt={evolve} width='100%' height='100%'></img>
                                             </div>   
                                         )
                                     })
