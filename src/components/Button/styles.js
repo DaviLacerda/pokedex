@@ -10,6 +10,7 @@ export const ButtonStyled = styled.button`
     font-weight:bold;
 
     background-color:#fff;
+    color:#000;
 
     margin-bottom:32px;
 
@@ -17,13 +18,15 @@ export const ButtonStyled = styled.button`
     border-radius:20px;
     transition:.3s;
 
-    &:hover{
-        cursor:pointer;
-        background-color:#a52424;
-        color:#fff;
-    }
-
     &:active{
         background-color:#801d1d;
+    }
+
+    @media(min-width:1200px){
+        &:hover{
+            cursor:pointer;
+            background-color:#a52424;
+            color:#fff;
+        }
     }
 `;

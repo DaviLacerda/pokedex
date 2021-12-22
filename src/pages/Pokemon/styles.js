@@ -81,7 +81,7 @@ export const PokemonContainer = styled.div`
         flex-direction:column;
     }
 
-    a.header{
+    a.back{
         position:absolute;
         top:-30px;
         transition:.5s;
@@ -133,7 +133,7 @@ export const PokemonContainer = styled.div`
             font-size:0.9em;
         }
 
-        .left__bgPokemon{
+        .left__circlePokemon{
             display:flex;
             align-items:center;
             flex-direction:column;
@@ -209,7 +209,11 @@ export const PokemonContainer = styled.div`
             flex-direction:column;
             justify-content:center;
             align-items:center;
+            flex-wrap:wrap;
             gap:10px;
+
+            width:100%;
+
 
             @media(min-width:900px){
                 flex-direction:row;

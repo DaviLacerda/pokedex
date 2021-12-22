@@ -19,65 +19,90 @@ function Pokemon() {
     const [evolutions, setEvolutions] = useState([])
     const [evolutionsImg, setEvolutionsImg] = useState([])
 
-    async function getPokemonId() {
+    async function getPokemonInformations() {
         let result = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`);
+        let data = result.data;
 
-        setPokemon(result.data)
+        setPokemon(data)
 
         //get pokemon height and weight
-        setHeight(result.data.height);
-        setWeight(result.data.weight);
+        setHeight(data.height);
+        setWeight(data.weight);
 
-        result.data.sprites.other.dream_world.front_default ? setImage(result.data.sprites.other.dream_world.front_default) : setImage(result.data.sprites.front_default)
+        data.sprites.other.dream_world.front_default ? setImage(data.sprites.other.dream_world.front_default) : 
+        setImage(data.sprites.front_default)
 
-        setTypes(result.data.types)
+        setTypes(data.types)
 
-        getInformations()
+        getMoreInformations()
     }
 
-    async function getInformations() {
+    // this function is appart because the request is in another url
+    async function getMoreInformations() {
         const info = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${pokemonId}`)
-        for(let i = 0; i < info.data.flavor_text_entries.length; i++){
-            if(info.data.flavor_text_entries[i].language.name === 'en'){
-                setText(info.data.flavor_text_entries[i].flavor_text);
+        let data = info.data;
+
+        //i use a for instead a .map because if language 'EN' is in initial part, i dont need to go in all array
+        for(let i = 0; i < data.flavor_text_entries.length; i++){
+            if(data.flavor_text_entries[i].language.name === 'en'){
+                setText(data.flavor_text_entries[i].flavor_text);
                 break;
             }
         }
         
-        setGeneration(info.data.generation.name)
+        setGeneration(data.generation.name)
 
-        let evolutionURL = info.data.evolution_chain.url;
+        let evolutionURL = data.evolution_chain.url;
+
         getEvolutions(evolutionURL);
     }
 
+
+    // this function is appart because the request is in another url
     async function getEvolutions(url){
         const evolutions_result = await axios.get(url);
         let data = evolutions_result.data.chain;
 
-        async function axiosRequest(param){
+        async function getImages(param){
             let result = await axios.get(`https://pokeapi.co/api/v2/pokemon/${param}`) 
             let resultId = result.data.id;
             setEvolutionsImg(currentList => [...currentList, resultId])
         }
         
+        // this part, i traverse in object and his array to get all pokemons evolutions possible (in special, Eevee!)
         if(data.species.name){
             setEvolutions(currentList => [...currentList, data.species.name])
-            axiosRequest(data.species.name)
+            await getImages(data.species.name)
             if(data.evolves_to.length !== 0){
-                setEvolutions(currentList => [...currentList, data.evolves_to[0].species.name])
-                axiosRequest(data.evolves_to[0].species.name)
-                if(data.evolves_to[0].evolves_to.length !== 0){
-                    setEvolutions(currentList => [...currentList, data.evolves_to[0].evolves_to[0].species.name])
-                    axiosRequest(data.evolves_to[0].evolves_to[0].species.name)
-                }
+                data.evolves_to.map(async (pokemon) => {
+                    if(pokemon.species.name){
+                        setEvolutions(currentList => [...currentList, pokemon.species.name])
+                        await getImages(pokemon.species.name);
+                    }
+                    if(pokemon.evolves_to.length !== 0){
+                        pokemon.evolves_to.map(async (pokemonAux) => {
+                            if(pokemonAux.species.name){
+                                setEvolutions(currentList => [...currentList, pokemonAux.species.name])
+                                await getImages(pokemonAux.species.name);
+                            }
+                        })
+                    }
+                })
             }
         }
     }
 
-    function firstLetterUpper(param){
-        return param.charAt(0).toUpperCase() + param.slice(1);
+    function firstLetterUpper(word){
+        return word.charAt(0).toUpperCase() + word.slice(1);
     }
+
+    function order(array){
+        array.sort((a,b) => a - b) 
+    }
+    // order the evolutions!!!
+    order(evolutionsImg)
     
+    //i get all hexadecimal codes about colors, in a JSON, and transform in a array
     let colorsKey = Object.keys(colors);
     
     function addColorType(param) {
@@ -86,44 +111,48 @@ function Pokemon() {
         }
     }
 
-    let bg = null;
+    let circleBg = null;
     let arrayTypes = []
+    let typeColor = null;
 
     if(types !== null){
-        bg = addColorType(types[0].type.name)
+        circleBg = addColorType(types[0].type.name)
         arrayTypes = types;
     }
 
     useEffect(() => {
-        getPokemonId()
+        getPokemonInformations()
     }, [])
 
     return (
         <>
-            <Header><a href="/">Pokedéx</a></Header>
+            <Header>
+                <a href="/">Pokedéx</a></Header>
             <Container>
                 <PokemonContainer>
-                    <a href="/" className="header">
+                    <a href="/" className="back">
                         <span>Back</span>
                     </a>
+
                     <div className='left'>
                         <h1>{pokemon.name}</h1>
                         <h2 id="pokemonId">{`#${pokemon.id}`}</h2>
-                        <div className="left__bgPokemon">
-                            <span style={{background: bg}} className="circle">
+                        <div className="left__circlePokemon">
+                            <span style={{background: circleBg}} className="circle">
                                 <img src={image} alt={pokemon.name} height='100%' width='100%'></img>
                             </span>
                             <div className="left__types">
                                 {
                                     arrayTypes.map((type) => 
                                         {
-                                            bg = addColorType(type.type.name);
-                                            return <h3 style={{color:bg}}>{type.type.name}</h3>
+                                            typeColor = addColorType(type.type.name);
+                                            return <h3 style={{color:typeColor}}>{type.type.name}</h3>
                                         })
                                 }
                             </div>
                         </div>
                     </div>
+
                     <div className="right">
                         <h2 className="generation">{generation}</h2>
                         <p>{text}</p>
@@ -132,26 +161,28 @@ function Pokemon() {
                                 <h3>Height:</h3>
                                 <p>{`${height/10}m`}</p>
                             </div>
+
                             <div className="right__infos__content">
                                 <h3>Weight:</h3>
                                 <p>{`${weight/10}Kg`}</p>
                             </div>
+
                             <div className="right__infos__evolutions">
-                            <h2>Evolutions:</h2>
-                            <div className="right__infos__evolutions__container">
-                                {
-                                    evolutionsImg.length && evolutions.map((evolve, index) => {
-                                        return (
-                                            <div className="evolution">
-                                                <p>{firstLetterUpper(evolve)}</p>
-                                                <a href={`${evolutionsImg[index]}`}>
-                                                    <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${evolutionsImg[index]}.png`} alt={evolve} width='100%' height='100%' ></img>
-                                                </a>
-                                            </div>   
-                                        )
-                                    })
-                                }
-                            </div>
+                                <h2>Evolutions:</h2>
+                                <div className="right__infos__evolutions__container">
+                                    {
+                                        evolutionsImg.length && evolutions.map((evolve, index) => {
+                                            return (
+                                                <div className="evolution">
+                                                    <p>{firstLetterUpper(evolve)}</p>
+                                                    <a href={`${evolutionsImg[index]}`}>
+                                                        <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${evolutionsImg[index]}.png`} alt={evolve} width='100%' height='100%' ></img>
+                                                    </a>
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                </div>
                             </div>
                         </div>
                     </div>

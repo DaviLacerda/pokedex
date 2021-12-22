@@ -4,16 +4,12 @@ import { useState, useEffect } from 'react'
 import { Header, Container } from "./styles"
 import { ButtonStyled } from '../../components/Button/styles';
 import Card from '../../components/Card/Card';
+import Input from '../../components/Input/Input';
 
 function Home() {
-    //i use this function always before a .map, to reorganize the array to display pokemons in id order, like a pokedex
-    function order(){
-        pokemonShow.sort((a,b) => a.id - b.id) 
-    }
-
     const [pokemonShow, setPokemonShow] = useState([]);
-
     const [loadPokemon, setLoadPokemon] = useState(`https://pokeapi.co/api/v2/pokemon?limit=20`)
+    const[input, setInput] = useState('')
 
     var promise = null;
 
@@ -36,26 +32,44 @@ function Home() {
             createPokemon(promise.data.results)
         }
     }
+    
+    //i use this function to reorganize the array to display pokemons in id order, like a pokedex
+    function order(param){
+        param.sort((a,b) => a.id - b.id) 
+    }
+    order(pokemonShow);
+
 
     useEffect(() => {
         getPokemons()
     }, [])
 
-    order();
-
     return (
         <>
-            <Header><a href="/">Pokedéx</a></Header>
+            <Header>
+                <a href="/">Pokedéx</a>
+            </Header>
+
+            <Input type='text' placeholder='Search Pokemon' onchange={event => setInput(event.target.value)}></Input>
+
             <Container>
-            {pokemonShow.map( (pokemon) =>
-                <>
-                    <Card key={pokemon.id} id={pokemon.id}
-                        src={pokemon.sprites}
-                        name={pokemon.name}
-                        type={pokemon.types}
-                    ></Card>   
-                </>
-            )}
+                {pokemonShow.filter((pkm) => {
+                    if(input === ''){
+                        return pkm;
+                    }
+                    else if(pkm.name.toLowerCase().includes(input.toLowerCase())){
+                        return pkm;
+                    }
+                    else if(pkm.id.toString().includes(Number(input))){
+                        return pkm;
+                    }}).map( (pokemon) =>
+                                <Card id={pokemon.id}
+                                    src={pokemon.sprites}
+                                    name={pokemon.name}
+                                    type={pokemon.types}
+                                ></Card>
+                            )
+                    }
             </Container>
             <ButtonStyled onClick={() => getPokemons()} id='loadBtn'>Load More</ButtonStyled>
         </>

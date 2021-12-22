@@ -37,7 +37,6 @@ export const Container = styled.div`
     width:75%;
     max-width:100vw;
 
-    min-height:100vh;
     height: auto;
 
     padding:32px;

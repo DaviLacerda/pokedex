@@ -17,7 +17,7 @@ function Card(props) {
     }
 
     return (
-            <PokemonContainer id={props.id} className='pokemon-container' key={props.id}>
+            <PokemonContainer id={props.id} className='pokemon-container'>
                 <Link to={`/pokemon/${props.id}`}></Link>
                 <span>#{props.id}</span>
                 <img src={img} alt={props.name}/>
@@ -25,9 +25,8 @@ function Card(props) {
                 <div className='types'>
                     {props.type.map((array) => 
                         {   bg = addColorType(array.type.name)
-                            {return (
-                                <button style={{background: bg}} key={`${props.id}-${bg}`}>{array.type.name}</button>
-                            )
+                            {
+                                return <button style={{background: bg}} key={`${props.id}-${bg}`}>{array.type.name}</button> 
                             }
                         }     
                     )}

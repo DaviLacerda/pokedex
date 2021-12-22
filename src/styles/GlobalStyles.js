@@ -7,6 +7,10 @@ export default createGlobalStyle`
         box-sizing:border-box;
     }
 
+    html{
+        scroll-behavior: smooth;
+    }
+
     body{
         width:100%;
         min-height:100vh;
@@ -19,10 +23,7 @@ export default createGlobalStyle`
         display:flex;
         flex-direction:column;
         align-items:center;
-        
-        @media(max-width:1200px){
-            gap:30px;
-        }
+        gap:30px;
     }
 
     ::-webkit-scrollbar {

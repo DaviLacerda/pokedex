@@ -70,8 +70,8 @@ export const PokemonContainer = styled.div`
         transition: transform .5s;
 
         &:hover{
-        cursor:pointer;
-        transform:translateY(-10px);
-    }
+            cursor:pointer;
+            transform:translateY(-10px);
+        }
     }
 `;
