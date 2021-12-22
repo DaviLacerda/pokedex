@@ -175,7 +175,7 @@ function Pokemon() {
                                             return (
                                                 <div className="evolution">
                                                     <p>{firstLetterUpper(evolve)}</p>
-                                                    <a href={`${evolutionsImg[index]}`}>
+                                                    <a href={`${evolve}`}>
                                                         <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${evolutionsImg[index]}.png`} alt={evolve} width='100%' height='100%' ></img>
                                                     </a>
                                                 </div>

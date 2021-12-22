@@ -9,7 +9,7 @@ function RoutesFromSite() {
         <Router>
             <Routes>
                 <Route path='*' element={<Home/>}></Route>
-                <Route path='/pokemon/:id' element={<Pokemon/>}></Route>
+                <Route path='/pokemon/:name' element={<Pokemon/>}></Route>
             </Routes>
         </Router>
     )

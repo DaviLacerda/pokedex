@@ -18,7 +18,7 @@ function Card(props) {
 
     return (
             <PokemonContainer id={props.id} className='pokemon-container'>
-                <Link to={`/pokemon/${props.id}`}></Link>
+                <Link to={`/pokemon/${props.name}`}></Link>
                 <span>#{props.id}</span>
                 <img src={img} alt={props.name}/>
                 <h2>{props.name}</h2>
