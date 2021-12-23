@@ -1,13 +1,17 @@
 import { createGlobalStyle } from "styled-components"
 
 export const dark = {
-    body:'#0f0f0f',
-    fontColor:'#EEE',
+    body:'#161616',
+    fontColor:'#fff',
+    cardColor:'#0f0f0f',
+    color:'#000',
 }
 
 export const light = {
-    body:'#EEE',
+    body:'#E0E0E0',
     fontColor:'#000',
+    cardColor:'#fff',
+    color:'#fff',
 }
 
 export const GlobalStyles = createGlobalStyle`

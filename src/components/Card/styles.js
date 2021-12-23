@@ -1,7 +1,8 @@
-import styled from "styled-components";
+import styled from 'styled-components';
+
 
 export const PokemonContainer = styled.div`
-    @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
     width: 100%;
     max-width: 300px;
@@ -9,96 +10,98 @@ export const PokemonContainer = styled.div`
     height: 250px;
 
     position: relative;
-    font-family: "Poppins", sans-serif;
+    font-family:'Poppins',sans-serif;
 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-
+    
     border-radius: 20px;
-    background-color: #e0e0e0;
+    background-color: ${props => props.theme.cardColor};
     padding: 16px;
 
-    .upper {
-        width: 100%;
-        height: 60%;
+    .upper{
+        width:100%;
+        height:60%;
 
-        position: absolute;
-        top: 0;
+        position:absolute;
+        top:0;
 
-        border-radius: 5px 5px 70px 70px;
-        pointer-events: none;
+        border-radius:5px 5px 70px 70px;
+        pointer-events:none;
 
-        background-color: #f0f0f0;
+        .upper__content{
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            gap:20px;
 
-        .upper__content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
+            position:relative;
+            top:25px;
 
-            position: relative;
-            top: 25px;
+            color: ${props => props.theme.fontColor}
         }
 
-        h2 {
-            text-align: center;
-            text-transform: uppercase;
+        h2{
+            text-align:center;
+            text-transform:uppercase;
         }
 
-        img {
-            height: 48px;
-            width: 48px;
+        img{
+            height:48px;
+            width:48px;
         }
     }
 
-    span {
-        position: absolute;
-        top: 20px;
-        right: 20px;
+    span{
+        position:absolute;
+        top:20px;
+        right:20px;
+
+        color: ${props => props.theme.fontColor}
     }
 
-    button {
+    button{
         padding: 8px;
-        color: #000;
+        color: ${props => props.theme.color};
         border: none;
 
         text-transform: uppercase;
-        font-weight: bold;
+        font-weight:bold;
 
-        pointer-events: none;
+        pointer-events:none;
     }
 
-    .types {
-        display: flex;
-        flex-direction: row;
-        gap: 4px;
+    .types{
+        display:flex;
+        flex-direction:row;
+        gap:4px;
 
-        position: absolute;
-        bottom: 40px;
+        position:absolute;
+        bottom:40px;
     }
 
-    a {
-        position: absolute;
+    a{
+        position:absolute;
 
-        width: 100%;
-        height: 100%;
+        width:100%;
+        height:100%;
 
-        text-decoration: none;
-        color: inherit;
+        text-decoration:none;
+        color:inherit;
 
-        &:visited {
-            color: inherit;
+        &:visited{
+            color:inherit;
         }
     }
 
-    @media (min-width: 1200px) {
-        transition: transform 0.5s;
+    @media(min-width:1200px){
+        transition: transform .5s;
 
-        &:hover {
-            cursor: pointer;
-            transform: translateY(-10px);
+        &:hover{
+            cursor:pointer;
+            transform:translateY(-10px);
         }
     }
 `;

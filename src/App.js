@@ -32,7 +32,6 @@ function App() {
                     onClick={() => themeToggler()}
                     className="theme__switch"
                 >
-                    Switch Theme
                 </Switch>
                 <GlobalStyles />
                 <RoutesFromSite />

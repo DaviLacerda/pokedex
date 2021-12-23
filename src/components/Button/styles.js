@@ -9,8 +9,8 @@ export const ButtonStyled = styled.button`
     font-family: "Poppins", sans-serif;
     font-weight: bold;
 
-    background-color: #fff;
-    color: #000;
+    background-color: ${props => props.theme.cardColor};
+    color: ${props => props.theme.fontColor};
 
     margin-bottom: 32px;
 

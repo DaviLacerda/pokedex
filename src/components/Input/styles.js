@@ -25,7 +25,8 @@ export const InputStyled = styled.div`
     }
 
     input {
-        width: 100%;
+        width: 95%;
+        height:90%;
         padding: 8px;
 
         font-family: "Poppins", sans-serif;
