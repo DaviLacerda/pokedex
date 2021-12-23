@@ -1,77 +1,104 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const PokemonContainer = styled.div`
-    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+    @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
     width: 100%;
     max-width: 300px;
 
-    height: 200px;
+    height: 250px;
 
     position: relative;
-    font-family:'Poppins',sans-serif;
+    font-family: "Poppins", sans-serif;
 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    
 
-    border: 1px solid #a52424;
     border-radius: 20px;
-    background-color: #a52424;
+    background-color: #e0e0e0;
     padding: 16px;
 
-    h2{
-        text-align:center;
-        text-transform:uppercase;
-    }
+    .upper {
+        width: 100%;
+        height: 60%;
 
-    img{
-        height:48px;
-        width:48px;
-    }
+        position: absolute;
+        top: 0;
 
-    span{
-        position:absolute;
-        top:20px;
-        right:20px;
-    }
+        border-radius: 5px 5px 70px 70px;
+        pointer-events: none;
 
-    button{
-        padding: 8px;
-        color: #fff;
-        border: none;
-        text-transform: uppercase;
-        pointer-events:none;
-    }
+        background-color: #f0f0f0;
 
-    .types{
-        display:flex;
-        flex-direction:row;
-        gap:4px;
-    }
+        .upper__content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
 
-    a{
-        position:absolute;
+            position: relative;
+            top: 25px;
+        }
 
-        width:100%;
-        height:100%;
+        h2 {
+            text-align: center;
+            text-transform: uppercase;
+        }
 
-        text-decoration:none;
-        color:inherit;
-
-        &:visited{
-            color:inherit;
+        img {
+            height: 48px;
+            width: 48px;
         }
     }
 
-    @media(min-width:1200px){
-        transition: transform .5s;
+    span {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
 
-        &:hover{
-            cursor:pointer;
-            transform:translateY(-10px);
+    button {
+        padding: 8px;
+        color: #000;
+        border: none;
+
+        text-transform: uppercase;
+        font-weight: bold;
+
+        pointer-events: none;
+    }
+
+    .types {
+        display: flex;
+        flex-direction: row;
+        gap: 4px;
+
+        position: absolute;
+        bottom: 40px;
+    }
+
+    a {
+        position: absolute;
+
+        width: 100%;
+        height: 100%;
+
+        text-decoration: none;
+        color: inherit;
+
+        &:visited {
+            color: inherit;
+        }
+    }
+
+    @media (min-width: 1200px) {
+        transition: transform 0.5s;
+
+        &:hover {
+            cursor: pointer;
+            transform: translateY(-10px);
         }
     }
 `;

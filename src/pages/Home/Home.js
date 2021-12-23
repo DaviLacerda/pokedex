@@ -1,14 +1,15 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 
-import { Header, Container } from "./styles"
+import Header from '../../components/Header/Header';
+import {Container } from "./styles"
 import { ButtonStyled } from '../../components/Button/styles';
 import Card from '../../components/Card/Card';
 import Input from '../../components/Input/Input';
 
 function Home() {
     const [pokemonShow, setPokemonShow] = useState([]);
-    const [loadPokemon, setLoadPokemon] = useState(`https://pokeapi.co/api/v2/pokemon?limit=20`)
+    const [loadPokemon, setLoadPokemon] = useState(`https://pokeapi.co/api/v2/pokemon?limit=12`)
     const[input, setInput] = useState('')
 
     var promise = null;
@@ -46,9 +47,7 @@ function Home() {
 
     return (
         <>
-            <Header>
-                <a href="/">Pokedéx</a>
-            </Header>
+            <Header link='/'>Pokedéx</Header>
 
             <Input type='text' placeholder='Search Pokemon' onchange={event => setInput(event.target.value)}></Input>
 

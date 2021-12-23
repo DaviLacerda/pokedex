@@ -1,32 +1,32 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const ButtonStyled = styled.button`
-    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-    
-    width:108px;
-    padding:10px;
+    @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
-    font-family:'Poppins',sans-serif;
-    font-weight:bold;
+    width: 108px;
+    padding: 10px;
 
-    background-color:#fff;
-    color:#000;
+    font-family: "Poppins", sans-serif;
+    font-weight: bold;
 
-    margin-bottom:32px;
+    background-color: #fff;
+    color: #000;
 
-    border:1px solid #000;
-    border-radius:20px;
-    transition:.3s;
+    margin-bottom: 32px;
 
-    &:active{
-        background-color:#801d1d;
+    border: 1px solid #000;
+    border-radius: 20px;
+    transition: 0.3s;
+
+    &:active {
+        background-color: #801d1d;
     }
 
-    @media(min-width:1200px){
-        &:hover{
-            cursor:pointer;
-            background-color:#a52424;
-            color:#fff;
+    @media (min-width: 1200px) {
+        &:hover {
+            cursor: pointer;
+            background-color: #a52424;
+            color: #fff;
         }
     }
 `;
