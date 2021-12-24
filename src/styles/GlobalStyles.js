@@ -1,9 +1,9 @@
 import { createGlobalStyle } from "styled-components"
 
 export const dark = {
-    body:'#161616',
+    body:'#292929',
     fontColor:'#fff',
-    cardColor:'#0f0f0f',
+    cardColor:'#191919',
     color:'#000',
 }
 
